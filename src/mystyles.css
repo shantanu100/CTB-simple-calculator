@@ -20,7 +20,7 @@ body{
     width: 256px;
     text-align: center;
     border: 10px solid black;
-    background: #101116;
+    background: #3a4996;
     border-radius: 5px;
 }
 .keypad{
@@ -80,3 +80,4 @@ button:active{
 .highlight{
     background: #56cbdb;
 }
+

@@ -1,114 +1,149 @@
 
 import './App.css';
-import React,{useState} from 'react';
-import'./mystyles.css'
+import React, { useState } from 'react';
+import './mystyles.css';
+import styled, { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme, GlobalStyles } from './themes'
 
 function App() {
- const [result,setResult]=useState("");
+  const [result, setResult] = useState("");
+  const [theme, setTheme] = useState("light");
 
- const handleClick=(e) => {
-   try{ 
-  setResult(result.concat(e.target.name));
-   }
-   catch(err){
-     setResult("Clear first") 
+  const StyledApp = styled.div``;
+  const [show, setShow] = useState(false);
 
-   }
- }
 
-//To Completely Clear 
- const clear=()=>{
+  //To handle CLicks
+  const handleClick = (e) => {
+    try {
+      setResult(result.concat(e.target.name));
+    }
+    catch (err) {
+      setResult("Clear first")
 
-  setResult("");
+    }
+  }
 
- }
+  //To Completely Clear 
+  const clear = () => {
 
-//To delete one by one.....
- const backspace=()=>{
-   setResult(result.slice(0,-1));
- }
+    setResult("");
 
- //To Calculate..........
- const calculate=()=>{
-   try{
-       setResult(eval(result).toString());
-   }catch(err){
-     setResult("Error")
-   }
- }
+  }
 
- //To Change the sign
- const changeSign =(e)=>{
-  //  let myresult =  setResult(eval(result));
-  //   let signresult = console.log(Math.sign(myresult));
-  //   console.log("signresult is ",signresult)
-  //  if(signresult==1){
-  //    console.log("in if block")
-  //    setResult("-",result)
-  //  }
-  //  else{
-  //   setResult("+",result)
-  //  }
-  
+  //To delete one by one.....
+  const backspace = () => {
+    setResult(result.slice(0, -1));
+  }
+
+  //To Calculate..........
+  const calculate = () => {
+    try {
+      setResult(eval(result).toString());
+    } catch (err) {
+      setResult("Error")
+    }
+  }
+
+  //To Change the sign
+  const changeSign = (e) => {
 
     let inputVal = document.getElementById("input").value
     console.log(inputVal)
-    if(inputVal>0){
-       inputVal= inputVal * -1;
+    if (inputVal > 0) {
+      inputVal = inputVal * -1;
       setResult(inputVal);
     }
-    else if(inputVal<0){
-      inputVal= inputVal * -1;
-      setResult( inputVal)
+    else if (inputVal < 0) {
+      inputVal = inputVal * -1;
+      setResult(inputVal)
     }
-    else{
+    else {
       setResult("Error")
     }
-    
- }
 
- //Till result
- const tillResult = ()=>{
-  setResult(eval(result).toString());
+  }
 
- }
+  //Till result
+  const tillResult = () => {
+    setResult(eval(result).toString());
 
- const clickops = (e)=>{
-  setResult(eval(result)  +  (e.target.name) );
-}
+  }
+  //Click Operations
+  const clickops = (e) => {
+
+    setResult(eval(result) + (e.target.name).toString());
+
+  }
+
+
+  //To change Themes
+  const themeToggler = () => {
+
+    theme === "light" ? setTheme("dark") : setTheme("light");
+  };
+
+  //Tofind Square
+  const square = () => {
+    let square = Math.pow(result, 2)
+    setResult(square)
+  }
+
+  const squareroot = () => {
+    let sqrt = Math.sqrt(result);
+    setResult(sqrt);
+  }
+
+
 
   return (
-    <div className="App">
-       <div className = "container">
-         <form>
-            <input type="text" id="input" onChange ={tillResult} value={result} />
-         </form>
+    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+      <GlobalStyles />
+      <StyledApp>
+        <div className="container">
+          <form>
+            <input type="text" id="input" onChange={tillResult} value={result} />
+          </form>
 
-         <div className="keypad">
-           <button className="highlight" onClick={clear} id="clear">Clear</button>
-           <button className="highlight" onClick={backspace} id="backspace" >C</button>
-           <button className="highlight" name="/" onClick={clickops}>&divide;</button>
-           <button name="7" onClick={handleClick}>7</button>
-           <button name="8" onClick={handleClick}>8</button>
-           <button name="9" onClick={handleClick}>9</button>
-           <button className="highlight" name="*" onClick={clickops}>&times;</button>
-           <button name="4" onClick={handleClick}>4</button>
-           <button name="5" onClick={handleClick}>5</button>
-           <button name="6" onClick={handleClick}>6</button>
-           <button className="highlight" name="-" onClick={clickops}>&ndash;</button>
-           <button name="1" onClick={handleClick}>1</button>
-           <button name="2" onClick={handleClick}>2</button>
-           <button name="3" onClick={handleClick}>3</button>
-           <button className="highlight" name="+" onClick={clickops}>+</button>
-           <button name="0" onClick={handleClick}>0</button>
-           <button name="." onClick={handleClick}>.</button>
-           <button className="highlight" name="=" onClick={calculate} id="result">=</button>
-           <button onClick={changeSign}>Sign</button>
+          <div className="keypad">
+            <button className="highlight" onClick={clear} id="clear">Clear</button>
+            <button className="highlight" onClick={backspace} id="backspace" >C</button>
+            <button className="highlight" name="/" onClick={clickops}>&divide;</button>
+            <button name="7" onClick={handleClick}>7</button>
+            <button name="8" onClick={handleClick}>8</button>
+            <button name="9" onClick={handleClick}>9</button>
+            <button className="highlight" name="*" onClick={clickops}>&times;</button>
+            <button name="4" onClick={handleClick}>4</button>
+            <button name="5" onClick={handleClick}>5</button>
+            <button name="6" onClick={handleClick}>6</button>
+            <button className="highlight" name="-" onClick={clickops}>&ndash;</button>
+            <button name="1" onClick={handleClick}>1</button>
+            <button name="2" onClick={handleClick}>2</button>
+            <button name="3" onClick={handleClick}>3</button>
+            <button className="highlight" name="+" onClick={clickops}>+</button>
+            <button name="0" onClick={handleClick}>0</button>
+            <button name="." onClick={handleClick}>.</button>
+            <button className="highlight" name="=" onClick={calculate} id="result">=</button>
 
-        
-         </div>
-       </div>
-    </div>
+            <button className="highlight" onClick={themeToggler}>Theme</button>
+
+            <button className="highlight" onClick={() => setShow(!show)} >Sci</button>
+            {
+              show ? (<div>  <button className="highlight" onClick={square} >Square</button>
+                <button className="highlight" onClick={squareroot} >Square root</button>
+                <button className="highlight" onClick={changeSign}>Sign</button>
+              </div>) : null
+
+
+
+            }
+
+
+
+          </div>
+        </div>
+      </StyledApp>
+    </ThemeProvider>
   );
 }
 
