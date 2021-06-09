@@ -69,8 +69,35 @@ function BtnOps(){
     }
     //Click Operations
     const clickops = (e) => {
+      try{
+      if(result === ""){
+        setResult(document.getElementById("input").value)
+        
+      }
+      
   
-      setResult(eval(result) + (e.target.name));
+      else{ 
+        const character = result.charAt(result.length-1)
+        if(character==="+"){
+              setResult(result.replace("+","+"));
+         }
+         else if(character==="-"){
+          setResult(result.replace("-","-"));
+         }
+         else if(character ==="*"){
+          setResult(result.replace("*","*"));
+         }
+         else if(character ==="/"){
+          setResult(result.replace("/","/"));
+         }
+         else{
+           setResult(eval(result).toString() + (e.target.name));
+         }
+         
+     } }catch(err){
+       setResult("Clear screen first");
+     }
+  
   
     }
   
