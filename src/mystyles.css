@@ -68,6 +68,7 @@ button{
     background: #262834;
     color: #ffffff ;
     font-weight: 500;
+    
 }
 
 input:focus,
@@ -81,3 +82,6 @@ button:active{
     background: #56cbdb;
 }
 
+
+
+  
